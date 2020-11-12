@@ -40,7 +40,7 @@ bookmarkRouter
   .get((req, res) => {
     const { id } = req.params;
     const bookmark = bookmarks.find((b) => b.id == id);
-    //make sure we find a bookmark
+    //make sure bookmark exists
     if (!bookmark) {
       logger.error(`Bookmark with id ${id} not found.`);
       return res.status(404).send("Bookmark not found");
