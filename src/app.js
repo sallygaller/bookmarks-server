@@ -3,16 +3,14 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const { v4: uuid } = require("uuid");
 const { NODE_ENV } = require("./config");
 const logger = require("./logger");
+const BookmarksService = require("./bookmarks/bookmarks-service");
 const bookmarkRouter = require("./bookmarks/bookmark-router");
 
 const app = express();
 
-const morganOption = NODE_ENV === "production" ? "tiny" : "common";
-
-app.use(morgan(morganOption));
+app.use(morgan(NODE_ENV === "production" ? "tiny" : "common"));
 app.use(cors());
 app.use(helmet());
 
