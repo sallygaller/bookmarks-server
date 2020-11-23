@@ -5,8 +5,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { NODE_ENV } = require("./config");
 const logger = require("./logger");
-const BookmarksService = require("./bookmarks/bookmarks-service");
-const bookmarkRouter = require("./bookmarks/bookmark-router");
+const bookmarksRouter = require("./bookmarks/bookmarks-router");
 
 const app = express();
 
@@ -15,6 +14,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use(function validateBearerToken(req, res, next) {
+  console.log("Token validated!");
   const apiToken = process.env.API_TOKEN;
   const authToken = req.get("Authorization");
   if (!authToken || authToken.split(" ")[1] !== apiToken) {
@@ -24,7 +24,7 @@ app.use(function validateBearerToken(req, res, next) {
   next();
 });
 
-app.use(bookmarkRouter);
+app.use(bookmarksRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
