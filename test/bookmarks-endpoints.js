@@ -31,13 +31,13 @@ describe("Bookmarks Endpoints", () => {
       return db.into("bookmarks").insert(testBookmarks);
     });
 
-    it(`responds with 401 Unauthorized for GET /bookmarks`, () => {
+    it("responds with 401 Unauthorized for GET /bookmarks", () => {
       return supertest(app)
-        .get("/bookmarks")
+        .get(`/bookmarks`)
         .expect(401, { error: "Unauthorized request" });
     });
 
-    it(`responds with 401 Unauthorized for POST /bookmarks`, () => {
+    it("responds with 401 Unauthorized for POST /bookmarks", () => {
       return supertest(app)
         .post(`/bookmarks`)
         .send({
@@ -48,14 +48,14 @@ describe("Bookmarks Endpoints", () => {
         .expect(401, { error: "Unauthorized request" });
     });
 
-    it(`responds with 401 Unauthorized for GET /bookmarks/:id`, () => {
+    it("responds with 401 Unauthorized for GET /bookmarks/:id", () => {
       const secondBookmark = testBookmarks[1];
       return supertest(app)
         .get(`/bookmarks/${secondBookmark.id}`)
         .expect(401, { error: "Unauthorized request" });
     });
 
-    it(`responds with 401 Unauthorized for DELETE /bookmarks/:id`, () => {
+    it("responds with 401 Unauthorized for DELETE /bookmarks/:id", () => {
       const aBookmark = testBookmarks[1];
       return supertest(app)
         .delete(`/bookmarks/${aBookmark.id}`)
@@ -109,7 +109,7 @@ describe("Bookmarks Endpoints", () => {
 
   describe("GET /bookmarks/:id", () => {
     context("Given no bookmarks", () => {
-      it(`responds 404 when bookmark doesn't exist`, () => {
+      it("responds 404 when bookmark doesn't exist", () => {
         return supertest(app)
           .get(`/bookmarks/123`)
           .set("Authorization", `Bearer ${process.env.API_TOKEN}`)
@@ -156,8 +156,8 @@ describe("Bookmarks Endpoints", () => {
   });
 
   describe("DELETE /bookmarks/:id", () => {
-    context(`Given no bookmarks`, () => {
-      it(`responds 404 whe bookmark doesn't exist`, () => {
+    context("Given no bookmarks", () => {
+      it("responds 404 whe bookmark doesn't exist", () => {
         return supertest(app)
           .delete(`/bookmarks/123`)
           .set("Authorization", `Bearer ${process.env.API_TOKEN}`)
@@ -194,7 +194,7 @@ describe("Bookmarks Endpoints", () => {
   });
 
   describe("POST /bookmarks", () => {
-    it(`responds with 400 invalid 'rating' if not between 1 and 5`, () => {
+    it("responds with 400 invalid 'rating' if not between 1 and 5", () => {
       const newBookmarkInvalidRating = {
         title: "Test bookmark",
         url: "www.test-bookmark.com",
